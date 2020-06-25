@@ -1,7 +1,8 @@
 class TestApiController < ApplicationController
+  # rubocop:disable Metrics/MethodLength, Layout/LineLength
   def home
     render json: \
-    [ \
+    [\
       { \
         "version": "1.0", \
         "type": "video", \
@@ -44,4 +45,5 @@ class TestApiController < ApplicationController
       }
     ]
   end
+  # rubocop:enable Metrics/MethodLength, Layout/LineLength
 end
