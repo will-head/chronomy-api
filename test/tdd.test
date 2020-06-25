@@ -27,7 +27,7 @@ NO_COLOR='\033[0m'
 clear
 set -x  
 
-RUBYOPT="-W0" rspec $SPEC_FILE
+RUBYOPT="-W1" rspec $SPEC_FILE
 
 rubocop $SPEC_FILE $LIB_FILE
 
