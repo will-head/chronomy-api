@@ -1,0 +1,12 @@
+language: ruby
+services:
+- postgresql
+
+install:
+- bundle install
+- bundle exec rake db:create
+- bundle exec rake db:migrate
+
+script: 
+- bundle exec rspec
+- bundle exec rubocop
