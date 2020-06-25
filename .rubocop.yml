@@ -1,0 +1,17 @@
+# Configure Rubocop to use the config file in the Scaffolint GitHub repo
+AllCops:
+  Exclude:
+    - 'tmp/*'
+    - 'log/*'
+    - 'bin/*'
+    - 'config/initializers/*'
+    - 'config/environments/*'
+    - 'secret/*'
+    - 'db/**/*.rb'
+    - /db/*.sqlite3
+    - /db/*.sqlite3-journal
+    - 'node_modules/**/*'
+inherit_from:
+  - https://raw.githubusercontent.com/makersacademy/scaffolint/v1.1.0/.rubocop.yml
+Style/SafeNavigation: 
+  Enabled: false
