@@ -1,0 +1,35 @@
+#!/bin/bash
+
+USAGE='usage:\ttdd.test [file-name]'
+
+# TODO Logic needs to add case to print USAGE
+
+if [[ "$1" ]] ; then
+  SPEC_FILE="./spec/"$1"_spec.rb"
+  if [[ ! -f $SPEC_FILE ]] ; then
+    echo -e "$SPEC_FILE not found"
+    exit 1
+  fi
+else
+  SPEC_FILE=""
+fi
+
+if [[ "$1" ]] ; then
+  LIB_FILE="./lib/$1.rb"
+  if [[ ! -f $LIB_FILE ]] ; then
+    $LIB_FILE=""
+  fi
+fi
+
+GREEN='\033[0;32m'
+NO_COLOR='\033[0m' 
+
+clear
+set -x  
+
+RUBYOPT="-W0" rspec $SPEC_FILE
+
+rubocop $SPEC_FILE $LIB_FILE
+
+set +x
+ 
