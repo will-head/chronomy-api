@@ -1,3 +1,4 @@
+require 'rspec/json_expectations'
 require 'simplecov'
 require 'simplecov-console'
 
