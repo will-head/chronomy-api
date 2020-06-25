@@ -1,5 +1,5 @@
 class StaticController < ApplicationController
   def home
-    render json: { status: "It's working" }
+    render json: { status: "Automatically deployed to Heroku" }
   end
 end
