@@ -1,24 +1,30 @@
-# README
+# chronomy-api
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+API backend for [mbrad26/final-project-front-end](https://github.com/mbrad26/final-project-front-end)
 
-Things you may want to cover:
+## Setup
 
-* Ruby version
+```bash
+$ bundle install
+$ rails s
+```
 
-* System dependencies
+## Testing
 
-* Configuration
+To run RSpec (with coverage) followed by Rubocop run script:  
 
-* Database creation
+```bash
+$ ./test/tdd.test
+```
 
-* Database initialization
+## Approach
 
-* How to run the test suite
+## Code Structure
 
-* Services (job queues, cache servers, search engines, etc.)
+## Improvements
 
-* Deployment instructions
+* Add placeholder playlists JSON response
+* Add login functionality
 
-* ...
+
+## Specification
