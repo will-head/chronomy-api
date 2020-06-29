@@ -49,4 +49,12 @@ RSpec.describe User, type: :model do
       expect(user).to_not be_valid
     end
   end
+
+  context 'when the email has the wrong format' do
+    it 'user is not created' do
+      user = User.create(username: 'example20', email: 'email-example.com', password: 'password')
+
+      expect(user).to_not be_valid
+    end
+  end
 end
