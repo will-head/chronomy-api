@@ -16,5 +16,9 @@ RSpec.describe User, type: :model do
     it 'User is not valid with no username' do
       user = User.create(username: nil, email: 'email@example.com', password: 'password')
     end
+
+    it 'User is not valid with no email' do
+      user = User.create(username: 'example20', email: nil, password: 'password')
+    end
   end
 end
