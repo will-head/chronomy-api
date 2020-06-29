@@ -40,4 +40,13 @@ RSpec.describe User, type: :model do
       expect(user).to_not be_valid
     end
   end
+
+  context 'when the email is not unique' do
+    it 'user is not created' do
+      User.create(username: 'example20', email: 'email@example.com', password: 'password')
+      user = User.create(username: 'another_example20', email: 'email@example.com', password: 'another_password')
+
+      expect(user).to_not be_valid
+    end
+  end
 end
