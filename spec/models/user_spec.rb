@@ -12,4 +12,9 @@ RSpec.describe User, type: :model do
     end
   end
 
+  context 'when incorect attributes' do
+    it 'User is not valid with no username' do
+      user = User.create(username: nil, email: 'email@example.com', password: 'password')
+    end
+  end
 end
