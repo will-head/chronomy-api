@@ -8,11 +8,7 @@ class SessionsController < ApplicationController
 
     if user
       session[:user_id] = user.id
-      render json: {
-        status: 200,
-        logged_in: true,
-        user: user
-      }
+      render json: { status: 200, logged_in: true, user: user }
     else
       render json: { status: 401 }
     end
