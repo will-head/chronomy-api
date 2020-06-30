@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_30_112443) do
+ActiveRecord::Schema.define(version: 2020_06_30_143041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "playlist_tiktoks", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "tiktok_id"
+    t.bigint "playlist_id"
+    t.index ["playlist_id"], name: "index_playlist_tiktoks_on_playlist_id"
+    t.index ["tiktok_id"], name: "index_playlist_tiktoks_on_tiktok_id"
+  end
 
   create_table "playlists", force: :cascade do |t|
     t.string "title"
@@ -40,5 +49,7 @@ ActiveRecord::Schema.define(version: 2020_06_30_112443) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "playlist_tiktoks", "playlists"
+  add_foreign_key "playlist_tiktoks", "tiktoks"
   add_foreign_key "playlists", "users"
 end

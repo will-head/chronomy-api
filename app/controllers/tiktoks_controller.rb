@@ -5,12 +5,13 @@ require 'net/http'
 require 'rest-client'
 
 class TiktoksController < ApplicationController
+  
   # rubocop:disable Layout/LineLength
   AGENT = "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:78.0) Gecko/20100101 Firefox/78.0"
   # rubocop:enable Layout/LineLength
-
-  def create
-    url = params['original_url']
+  
+  def self.create(url)
+    # url = params['original_url']
     tiktok = Tiktok.create(title: get_title(url), original_url: url, 
       mp4_url: get_mp4_url(url)
       )
@@ -21,7 +22,7 @@ class TiktoksController < ApplicationController
     end
   end
 
-  def show
+  def self.show
     tiktok = Tiktok.find(params[:id])
     if tiktok
       render json: { status: 200, tiktok: tiktok }
@@ -30,7 +31,7 @@ class TiktoksController < ApplicationController
     end
   end
 
-  def unshorten(url)
+  def self.unshorten(url)
     final_url = nil
     RestClient.get(url, :user_agent => AGENT, :cookies => @cookies) { 
       |response, request, &block|
@@ -45,13 +46,13 @@ class TiktoksController < ApplicationController
 
   private
 
-  def get_title(url)
+  def self.get_title(url)
     api_url = "https://www.tiktok.com/oembed?url=#{url}"
     response = Faraday.get(api_url) 
     return JSON.parse(response.body)["title"]
   end
 
-  def get_mp4_url(url)
+  def self.get_mp4_url(url)
     data = {
       :url => url
     }
@@ -71,5 +72,4 @@ class TiktoksController < ApplicationController
     uri.query_values = []
     uri.to_s.chomp('?')
   end
-
 end
