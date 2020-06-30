@@ -1,4 +1,10 @@
 FactoryBot.define do
+  factory :tiktok do
+    original_url { "MyString" }
+    mp4_url { "MyString" }
+    title { "MyString" }
+  end
+
   factory :user do
     sequence(:username) { |i| "john#{i}" }
     email { "#{username}@example.com" }

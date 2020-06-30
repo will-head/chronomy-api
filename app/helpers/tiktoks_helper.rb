@@ -1,0 +1,2 @@
+module TiktoksHelper
+end
