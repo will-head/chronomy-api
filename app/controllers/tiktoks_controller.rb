@@ -1,0 +1,2 @@
+class TiktoksController < ApplicationController
+end
