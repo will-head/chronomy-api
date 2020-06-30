@@ -2,10 +2,14 @@ require 'securerandom'
 
 class PlaylistsController < ApplicationController
 
-  #create new playlists
+  # create new playlists
 
   def create
-    playlist = Playlist.create(title: params['playlist']['title'], user_id: session[:user_id], uuid: SecureRandom.uuid)
+    playlist = Playlist.create(
+      title: params['playlist']['title'], 
+      user_id: session[:user_id], 
+      uuid: SecureRandom.uuid
+      )
     if playlist.save
       render json: { status: 200, playlist: playlist }
     else
@@ -13,7 +17,7 @@ class PlaylistsController < ApplicationController
     end
   end
 
-  #find by playlist id
+  # find by playlist id
 
   def show
 
@@ -26,18 +30,17 @@ class PlaylistsController < ApplicationController
     end
   end
 
-
-  #destroy by playlist id, only if it is the logged in user's playlist
+  # destroy by playlist id, only if it is the logged in user's playlist
 
   def destroy 
     playlist = Playlist.find(params[:id])
-    if playlist[:user_id] == session[:user_id]
-      playlist.destroy
-      render json: { status: 200, deleted: true }
-    end
+    return unless playlist[:user_id] == session[:user_id]
+
+    playlist.destroy
+    render json: { status: 200, deleted: true }
   end
 
-  #find by user id, returns nothing if not logged in
+  # find by user id, returns nothing if not logged in
 
   def find_by_user
     playlists_by_user = Playlist.where("user_id = #{session[:user_id]}")
@@ -48,7 +51,7 @@ class PlaylistsController < ApplicationController
     end
   end
 
-  #update playlist by id, only if it is the logged in user's playlist
+  # update playlist by id, only if it is the logged in user's playlist
   
   def update
     playlist = Playlist.find(params[:id])
