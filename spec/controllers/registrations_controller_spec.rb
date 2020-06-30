@@ -13,10 +13,12 @@ RSpec.describe RegistrationsController, type: :controller do
       post :create, params: { user: valid_attributes }, as: :json
 
       json = JSON.parse(response.body)
+      p response.body["status"]
       p response.body
-      p json
+      # p response
+      p json["status"]
 
-      expect(response).to have_http_status 200
+      expect(json["status"]).to eq 200
       expect(json["user"]["username"]).to include valid_attributes[:username]
     end
   end
