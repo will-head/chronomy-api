@@ -6,9 +6,7 @@ require 'net/http'
 class TiktoksController < ApplicationController
   def create
     url = params['original_url']
-    tiktok = Tiktok.create(
-      title: get_title(url), 
-      original_url: url, 
+    tiktok = Tiktok.create(title: get_title(url), original_url: url, 
       mp4_url: get_mp4_url(url)
       )
     if tiktok.save
