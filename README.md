@@ -6,7 +6,9 @@ API backend for [mbrad26/final-project-front-end](https://github.com/mbrad26/fin
 
 ```bash
 $ bundle install
-$ rails s
+$ rails db:create
+$ rails db:migrate
+$ rails s -p 3001
 ```
 
 ## Testing
@@ -24,7 +26,7 @@ $ ./test/tdd.test
 ## Improvements
 
 * Add placeholder playlists JSON response
-* Add login functionality
+* Add login functionality tests
 
 
 ## Specification
