@@ -7,16 +7,15 @@ class RegistrationsController < ApplicationController
       password: params['user']['password'],
       password_confirmation: params['user']['password_confirmation']
       )
-    if user
+    if user.save
       session[:user_id] = user.id
       render json: {
         status: 200,
         user: user
       }
     else
-      # render json: { status: 500 }
+      render json: { status: 401 }
     end
 
   end
-
 end
