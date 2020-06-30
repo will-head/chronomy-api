@@ -3,6 +3,7 @@ require 'json'
 require 'uri'
 require 'net/http'
 require 'rest-client'
+require 'addressable/uri'
 
 class TiktoksController < ApplicationController
   

@@ -7,8 +7,8 @@ class PlaylistsController < ApplicationController
   def create
     playlist = create_playlist(params['playlist']['title'])
     if playlist.save
-      render json: { status: 200, playlist: playlist }
       create_tiktoks_and_playlist_tiktoks(params['playlist']['tiktoks'], playlist[:id])
+      render json: { status: 200, playlist: playlist }
     else
       render json: { status: 500 }
     end
@@ -19,10 +19,10 @@ class PlaylistsController < ApplicationController
   def show
 
     playlist = Playlist.find_by(uuid: params[:id])
-    playlist_id = playlist[:id]
-    tiktoks = PlaylistTiktok.where("playlist_id = #{playlist_id}")
-    array_of_tiktoks = tiktoks_array(tiktoks)
     if playlist
+      playlist_id = playlist[:id]
+      tiktoks = PlaylistTiktok.where("playlist_id = #{playlist_id}")
+      array_of_tiktoks = tiktoks_array(tiktoks)
       render json: { status: 200, playlist: playlist, tiktoks: array_of_tiktoks }
     else
       render json: { status: 500 }
@@ -35,7 +35,8 @@ class PlaylistsController < ApplicationController
     playlist = Playlist.find_by(uuid: params[:id])
     return unless playlist[:user_id] == session[:user_id]
 
-    PlaylistTiktok.where("playlist_id = #{playlist[:id]}").delete_all
+    # PlaylistTiktok.where("playlist_id = #{playlist[:id]}").delete_all
+    delete_tiktoks_from_playlist(playlist[:id])
     playlist.destroy
     render json: { status: 200, deleted: true }
   end
@@ -53,19 +54,19 @@ class PlaylistsController < ApplicationController
 
   # update playlist by uuid, only if it is the logged in user's playlist
   
+  # rubocop:disable Metrics/AbcSize
   def update
     playlist = Playlist.find_by(uuid: params[:id])
-    if playlist[:username] == session[:username]
-      playlist.update(title: params['playlist']['title'])
+    if playlist[:user_id] == session[:user_id]
+      change_playlist_title(playlist, params['playlist']['title'])
+      update_playlist(playlist[:id], params['playlist']['tiktoks'])
       render json: { status: 200, playlist: playlist }
-
-      # update the tiktoks and update the playlist tiktoks
-
     else
       render json: { status: 500 }
     end
   end
-
+  # rubocop:enable Metrics/AbcSize
+  
   private
 
   def tiktoks_array(tiktoks)
@@ -81,11 +82,31 @@ class PlaylistsController < ApplicationController
   end
 
   def create_tiktoks_and_playlist_tiktoks(tiktoks, playlist_id)
-    tiktoks.each do |url|
-      tiktok = TiktoksController.create(url)
-      tiktok_id = JSON(tiktok)["tiktok"]["id"]
+    tiktoks.each do |tiktok_url|
+      tiktok_id = add_tiktok(tiktok_url)    
       PlaylistTiktoksController.create(tiktok_id, playlist_id)
     end
+  end
+
+  def add_tiktok(url)
+    tiktok_unique_url = TiktoksController.unshorten(url)
+    result = Tiktok.find_by(original_url: tiktok_unique_url)
+    if result 
+      tiktok_id = result.id 
+    else
+      tiktok = TiktoksController.create(tiktok_unique_url)
+      tiktok_id = JSON(tiktok)["tiktok"]["id"]
+    end
+    tiktok_id
+  end
+
+  def delete_tiktoks_from_playlist(playlist_id)
+    PlaylistTiktok.where("playlist_id = #{playlist_id}").delete_all
+  end
+
+  def update_playlist(playlist_id, tiktoks)
+    delete_tiktoks_from_playlist(playlist_id)
+    create_tiktoks_and_playlist_tiktoks(tiktoks, playlist_id)
   end
 
   def create_playlist(title)
@@ -94,5 +115,9 @@ class PlaylistsController < ApplicationController
       user_id: session[:user_id], 
       uuid: SecureRandom.uuid
     )
+  end
+
+  def change_playlist_title(playlist, title)
+    playlist.update(title: title)
   end
 end
