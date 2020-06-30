@@ -35,4 +35,19 @@ RSpec.describe PlaylistsController, type: :controller do
       end
     end
   end
+
+
+    describe '#show' do
+      context 'when the playlist exists' do
+        it 'renders status 200' do
+          get :show params: { playlist: { playlist: playlist.id } }, format: :json
+
+          json = JSON.parse(response.body)
+
+          p json['playlist']
+
+          expect(json['playlist']['status']).to eq 200
+        end
+      end
+    end
 end
