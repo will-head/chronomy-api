@@ -17,7 +17,6 @@ RSpec.describe RegistrationsController, type: :controller do
       post :create, params: { user: valid_attributes }, format: :json
 
       json = JSON.parse(response.body)
-      p User.last
 
       expect(json["status"]).to eq 200
       expect(json["user"]["username"]).to include valid_attributes[:username]
@@ -29,7 +28,6 @@ RSpec.describe RegistrationsController, type: :controller do
       post :create, params: { user: invalid_attributes }, format: :json
 
       json = JSON.parse(response.body)
-      p User.last
 
       expect(json["status"]).to eq 401
     end

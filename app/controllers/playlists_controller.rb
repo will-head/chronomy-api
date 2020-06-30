@@ -6,8 +6,8 @@ class PlaylistsController < ApplicationController
 
   def create
     playlist = Playlist.create(
-      title: params['playlist']['title'], 
-      user_id: session[:user_id], 
+      title: params['playlist']['title'],
+      user_id: session[:user_id],
       uuid: SecureRandom.uuid
       )
     if playlist.save
@@ -20,7 +20,6 @@ class PlaylistsController < ApplicationController
   # find by playlist id
 
   def show
-
     # change to find by uuid
     playlist = Playlist.find(params[:id])
     if playlist
@@ -32,7 +31,7 @@ class PlaylistsController < ApplicationController
 
   # destroy by playlist id, only if it is the logged in user's playlist
 
-  def destroy 
+  def destroy
     playlist = Playlist.find(params[:id])
     return unless playlist[:user_id] == session[:user_id]
 
@@ -52,7 +51,7 @@ class PlaylistsController < ApplicationController
   end
 
   # update playlist by id, only if it is the logged in user's playlist
-  
+
   def update
     playlist = Playlist.find(params[:id])
     if playlist[:username] == session[:username]
