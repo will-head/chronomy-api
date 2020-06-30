@@ -2,8 +2,13 @@ require 'faraday'
 require 'json'
 require 'uri'
 require 'net/http'
+require 'rest-client'
 
 class TiktoksController < ApplicationController
+  # rubocop:disable Layout/LineLength
+  AGENT = "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:78.0) Gecko/20100101 Firefox/78.0"
+  # rubocop:enable Layout/LineLength
+
   def create
     url = params['original_url']
     tiktok = Tiktok.create(title: get_title(url), original_url: url, 
@@ -23,6 +28,19 @@ class TiktoksController < ApplicationController
     else
       render json: { status: 500 }
     end
+  end
+
+  def unshorten(url)
+    final_url = nil
+    RestClient.get(url, :user_agent => AGENT, :cookies => @cookies) { 
+      |response, request, &block|
+      if [301, 302, 307].include? response.code
+        response.follow_redirection(&block)
+      else
+        final_url = request.url; response.return!(&block)
+      end
+    }
+    strip_params(final_url)
   end
 
   private
@@ -47,4 +65,11 @@ class TiktoksController < ApplicationController
     puts JSON.parse(response.body)["direct"]
     return JSON.parse(response.body)["direct"]
   end
+
+  def strip_params(url)
+    uri = Addressable::URI.parse(url)
+    uri.query_values = []
+    uri.to_s.chomp('?')
+  end
+
 end
