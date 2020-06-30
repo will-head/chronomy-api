@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
-  let(:user) { User.create!(email: "example@example.com", username: "example", password: "password") }
+  let(:user) { User.create(email: "example@example.com", username: "example", password: "password") }
 
   let(:valid_attributes) {
     { email: user.email, username: user.username, password: "password" }
   }
 
   let(:invalid_attributes) {
-    { email: user.email, username: user.username, password: "wordpass" }
+    { email: user.email, username: user.username, password: "woss" }
   }
 
   let(:valid_session) { {} }
