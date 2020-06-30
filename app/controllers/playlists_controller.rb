@@ -82,15 +82,7 @@ class PlaylistsController < ApplicationController
 
   def create_tiktoks_and_playlist_tiktoks(tiktoks, playlist_id)
     tiktoks.each do |tiktok_url|
-      tiktok_id = add_tiktok(tiktok_url)
-      # tiktok_unique_url = TiktoksController.unshorten(tiktok_url)
-      # result = Tiktok.find_by(original_url: tiktok_unique_url)
-      # if result 
-      #   tiktok_id = result.id 
-      # else
-      #   tiktok = TiktoksController.create(tiktok_unique_url)
-      #   tiktok_id = JSON(tiktok)["tiktok"]["id"]
-      # end      
+      tiktok_id = add_tiktok(tiktok_url)    
       PlaylistTiktoksController.create(tiktok_id, playlist_id)
     end
   end
