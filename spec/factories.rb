@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :user do
     sequence(:username) { |i| "john#{i}" }
-    email  { "#{username}@example.com" }
-    password { "strong_password"}
+    email { "#{username}@example.com" }
+    password { "strong_password" }
   end
 end
 
@@ -23,7 +23,6 @@ end
 # create(:user) do |user|
 #   user.posts.create(attributes_for(:post))
 # end
-
 
 # # Build a User instance and override the first_name property
 # user = build(:user, first_name: "Joe")
@@ -61,7 +60,6 @@ end
 #   # ...
 #   association :author, factory: :user
 # end
-
 
 # Nested factories
 # You can easily create multiple factories for the same class without repeating common attributes by nesting factories:
