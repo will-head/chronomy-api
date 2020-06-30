@@ -4,8 +4,8 @@ require 'uri'
 require 'net/http'
 
 class TiktoksController < ApplicationController
-  def create
-    url = params['original_url']
+  def self.create(url)
+    # url = params['original_url']
     tiktok = Tiktok.create(title: get_title(url), original_url: url, 
       mp4_url: get_mp4_url(url)
       )
@@ -16,7 +16,7 @@ class TiktoksController < ApplicationController
     end
   end
 
-  def show
+  def self.show
     tiktok = Tiktok.find(params[:id])
     if tiktok
       render json: { status: 200, tiktok: tiktok }
@@ -25,15 +25,13 @@ class TiktoksController < ApplicationController
     end
   end
 
-  private
-
-  def get_title(url)
+  def self.get_title(url)
     api_url = "https://www.tiktok.com/oembed?url=#{url}"
     response = Faraday.get(api_url) 
     return JSON.parse(response.body)["title"]
   end
 
-  def get_mp4_url(url)
+  def self.get_mp4_url(url)
     data = {
       :url => url
     }

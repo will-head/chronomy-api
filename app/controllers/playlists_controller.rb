@@ -1,4 +1,4 @@
-require 'securerandom'
+require 'securerandom' 
 
 class PlaylistsController < ApplicationController
 
@@ -12,6 +12,12 @@ class PlaylistsController < ApplicationController
       )
     if playlist.save
       render json: { status: 200, playlist: playlist }
+      params['playlist']['tiktoks'].each{ |url|
+        tiktok = TiktoksController.create(url)
+        tiktok_id = JSON(tiktok)["tiktok"]["id"]
+        playlist_id = playlist[:id]
+        PlaylistTiktoksController.create(tiktok_id, playlist_id)
+      }
     else
       render json: { status: 500 }
     end
@@ -23,6 +29,13 @@ class PlaylistsController < ApplicationController
 
     # change to find by uuid
     playlist = Playlist.find(params[:id])
+
+    # get all tiktoks with that playlist_id
+
+    # for each of those, get the tiktok title and mp4 link
+
+    # build the json response with all the tiktok titles and mp4 urls and return it
+
     if playlist
       render json: { status: 200, playlist: playlist }
     else
