@@ -20,7 +20,6 @@ class PlaylistsController < ApplicationController
   # find by playlist id
 
   def show
-
     # change to find by uuid
     playlist = Playlist.find(params[:id])
     if playlist
