@@ -5,8 +5,8 @@ class PlaylistsController < ApplicationController
   #create new playlists
 
   def create
-    playlist = Playlist.create(title: params['playlist']['title'], user_id: session[:user_id], uuid: SecureRandom.hex(20))
-    if playlist
+    playlist = Playlist.create(title: params['playlist']['title'], user_id: session[:user_id], uuid: SecureRandom.uuid)
+    if playlist.save
       render json: { status: 200, playlist: playlist }
     else
       render json: { status: 500 }
@@ -16,6 +16,8 @@ class PlaylistsController < ApplicationController
   #find by playlist id
 
   def show
+
+    # change to find by uuid
     playlist = Playlist.find(params[:id])
     if playlist
       render json: { status: 200, playlist: playlist }
