@@ -5,50 +5,37 @@ class PlaylistsController < ApplicationController
   # create new playlists
 
   def create
-    playlist = Playlist.create(
-      title: params['playlist']['title'], 
-      user_id: session[:user_id], 
-      uuid: SecureRandom.uuid
-      )
+    playlist = create_playlist(params['playlist']['title'])
     if playlist.save
       render json: { status: 200, playlist: playlist }
-      params['playlist']['tiktoks'].each{ |url|
-        tiktok = TiktoksController.create(url)
-        tiktok_id = JSON(tiktok)["tiktok"]["id"]
-        playlist_id = playlist[:id]
-        PlaylistTiktoksController.create(tiktok_id, playlist_id)
-      }
+      create_tiktoks_and_playlist_tiktoks(params['playlist']['tiktoks'], playlist[:id])
     else
       render json: { status: 500 }
     end
   end
 
-  # find by playlist id
+  # find by playlist uuid
 
   def show
 
-    # change to find by uuid
-    playlist = Playlist.find(params[:id])
-
-    # get all tiktoks with that playlist_id
-
-    # for each of those, get the tiktok title and mp4 link
-
-    # build the json response with all the tiktok titles and mp4 urls and return it
-
+    playlist = Playlist.find_by(uuid: params[:id])
+    playlist_id = playlist[:id]
+    tiktoks = PlaylistTiktok.where("playlist_id = #{playlist_id}")
+    array_of_tiktoks = tiktoks_array(tiktoks)
     if playlist
-      render json: { status: 200, playlist: playlist }
+      render json: { status: 200, playlist: playlist, tiktoks: array_of_tiktoks }
     else
       render json: { status: 500 }
     end
   end
 
-  # destroy by playlist id, only if it is the logged in user's playlist
+  # destroy by playlist uuid, only if it is the logged in user's playlist
 
   def destroy 
-    playlist = Playlist.find(params[:id])
+    playlist = Playlist.find_by(uuid: params[:id])
     return unless playlist[:user_id] == session[:user_id]
 
+    PlaylistTiktok.where("playlist_id = #{playlist[:id]}").delete_all
     playlist.destroy
     render json: { status: 200, deleted: true }
   end
@@ -64,15 +51,48 @@ class PlaylistsController < ApplicationController
     end
   end
 
-  # update playlist by id, only if it is the logged in user's playlist
+  # update playlist by uuid, only if it is the logged in user's playlist
   
   def update
-    playlist = Playlist.find(params[:id])
+    playlist = Playlist.find_by(uuid: params[:id])
     if playlist[:username] == session[:username]
       playlist.update(title: params['playlist']['title'])
       render json: { status: 200, playlist: playlist }
+
+      # update the tiktoks and update the playlist tiktoks
+
     else
       render json: { status: 500 }
     end
+  end
+
+  private
+
+  def tiktoks_array(tiktoks)
+    array_of_tiktoks = []
+    tiktoks.each do |tiktok|
+      temp = Tiktok.find(tiktok.tiktok_id)
+      array_of_tiktoks.push({
+        title: temp["title"],
+        mp4_url: temp["mp4_url"]
+      })
+    end
+    return array_of_tiktoks
+  end
+
+  def create_tiktoks_and_playlist_tiktoks(tiktoks, playlist_id)
+    tiktoks.each do |url|
+      tiktok = TiktoksController.create(url)
+      tiktok_id = JSON(tiktok)["tiktok"]["id"]
+      PlaylistTiktoksController.create(tiktok_id, playlist_id)
+    end
+  end
+
+  def create_playlist(title)
+    return Playlist.create(
+      title: title, 
+      user_id: session[:user_id], 
+      uuid: SecureRandom.uuid
+    )
   end
 end
