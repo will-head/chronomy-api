@@ -44,8 +44,6 @@ class TiktoksController < ApplicationController
     strip_params(final_url)
   end
 
-  private
-
   def self.get_title(url)
     api_url = "https://www.tiktok.com/oembed?url=#{url}"
     response = Faraday.get(api_url) 
@@ -67,7 +65,7 @@ class TiktoksController < ApplicationController
     return JSON.parse(response.body)["direct"]
   end
 
-  def strip_params(url)
+  def self.strip_params(url)
     uri = Addressable::URI.parse(url)
     uri.query_values = []
     uri.to_s.chomp('?')
