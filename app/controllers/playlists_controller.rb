@@ -19,10 +19,10 @@ class PlaylistsController < ApplicationController
   def show
 
     playlist = Playlist.find_by(uuid: params[:id])
-    playlist_id = playlist[:id]
-    tiktoks = PlaylistTiktok.where("playlist_id = #{playlist_id}")
-    array_of_tiktoks = tiktoks_array(tiktoks)
     if playlist
+      playlist_id = playlist[:id]
+      tiktoks = PlaylistTiktok.where("playlist_id = #{playlist_id}")
+      array_of_tiktoks = tiktoks_array(tiktoks)
       render json: { status: 200, playlist: playlist, tiktoks: array_of_tiktoks }
     else
       render json: { status: 500 }
