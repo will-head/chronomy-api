@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :registrations, only: [:create]
   resources :playlists
   resources :tiktoks
+  resources :playlist_tiktoks
   delete :logout, to: "sessions#logout"
   get :logged_in, to: "sessions#logged_in"
   get :playlists_by_user, to: "playlists#find_by_user"

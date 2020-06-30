@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :playlist_tiktok do
+    
+  end
+
   factory :tiktok do
     original_url { "MyString" }
     mp4_url { "MyString" }
