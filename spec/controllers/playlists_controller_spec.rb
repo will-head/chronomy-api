@@ -15,7 +15,7 @@ RSpec.describe PlaylistsController, type: :controller do
       it 'renders status 200' do
         post :create, params: { playlist: valid_attributes }, format: :json
 
-        json = JSON.parse(response.body)
+        # json = JSON.parse(response.body)
 
         # expect(json["status"]).to eq 200
         expect(Playlist.last).to eq playlist
