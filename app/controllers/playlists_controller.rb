@@ -75,7 +75,8 @@ class PlaylistsController < ApplicationController
       temp = Tiktok.find(tiktok.tiktok_id)
       array_of_tiktoks.push({
         title: temp["title"],
-        mp4_url: temp["mp4_url"]
+        mp4_url: temp["mp4_url"],
+        original_url: temp["original_url"]
       })
     end
     return array_of_tiktoks
