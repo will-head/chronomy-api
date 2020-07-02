@@ -20,12 +20,12 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
   end
 
   allow do
-    origins "http://chronomy.net"
+    origins "http://chronomy.net", "http://staging.chronomy.net"
     resource "*", headers: :any, methods: [:get, :post, :put, :patch, :delete, :options, :head], credentials: true
   end
 
   allow do
-    origins "http://staging.chronomy.net"
+    origins "http://192.168.*"
     resource "*", headers: :any, methods: [:get, :post, :put, :patch, :delete, :options, :head], credentials: true
   end
 end
