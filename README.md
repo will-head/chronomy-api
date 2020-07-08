@@ -15,6 +15,8 @@ Playlists are shared with deliberately long UUID based URLs to ensure they are e
 This is the api backend for app, the frontend is here:
 [github.com/will-head/chronomy-web](https://github.com/will-head/chronomy-web)
 
+![Chronomy Player on a phone](./images/chronomy-04.jpg "Chronomy Player on a phone")
+
 ## Setup
 
 ```bash
