@@ -1,5 +1,7 @@
 # chronomy-api
 
+[![Build Status](https://travis-ci.com/will-head/chronomy-api.svg?branch=master)](https://travis-ci.com/will-head/chronomy-api)
+
 ## Overview
 
 Chronomy lets users curate [TikTok](https://www.tiktok.com/) playlists.
