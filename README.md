@@ -84,7 +84,7 @@ Which TikToks are in which Playlists
 
 Curators can sign up and login using the `registrations` and `sessions` controllers.
 
-The `tiktoks` controller ensures TikToks are unique before being added to the database (even if different source URLs for the same TikTok are used) and queries the official TikTok api to get the title. The link for the MP4 file is provided by a 3rd party API.
+The `tiktoks` controller ensures TikToks are unique before being added to the database (even if different source URLs for the same TikTok are used) and queries the [official TikTok api](https://developers.tiktok.com/doc/Embed) to get the title. The link for the MP4 file is provided by a [3rd party API](https://tiktok.fail/).
 
 The `playlists` controller handles adding or deleting TikToks from playlists and generating the shareable UUID link for each playlist.
 
