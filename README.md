@@ -64,10 +64,10 @@ Playlist title, uuid (for share link) and who it belongs to
 
 The original url, mp4 url and title text
 
-| id  | original_url                                                                                                  | mp4_url                                                                                         | title                                                                             |
-|:--- |:------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| 1   | [https://www.tiktok.com/@mine.../67322...](https://www.tiktok.com/@minecrafter2011/video/6732210815300111622) | [https://v.tiktok.fail/af5be...mp4](https://v.tiktok.fail/af5bec5b0a331cecc9c49337287bb20c.mp4) | Spooky season dance, try it, it’s so fun #fyp #duetthis #dance #halloween #foryou |
-| 2   | [https://www.tiktok.com/@hann.../68092...](https://www.tiktok.com/@hannahsimpsonx/video/6809258299985267974)  | [https://v.tiktok.fail/401fa...mp4](https://v.tiktok.fail/401fa7a6eedaf512427da188e89f37eb.mp4) | #blindinglightschallenge                                                          |
+| id  | original_url                                                                                          | mp4_url                                                                                 | title                                                                             |
+|:--- |:----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| 1   | [www.tiktok.com/@mine.../67322...](https://www.tiktok.com/@minecrafter2011/video/6732210815300111622) | [v.tiktok.fail/af5be...mp4](https://v.tiktok.fail/af5bec5b0a331cecc9c49337287bb20c.mp4) | Spooky season dance, try it, it’s so fun #fyp #duetthis #dance #halloween #foryou |
+| 2   | [www.tiktok.com/@hann.../68092...](https://www.tiktok.com/@hannahsimpsonx/video/6809258299985267974)  | [v.tiktok.fail/401fa...mp4](https://v.tiktok.fail/401fa7a6eedaf512427da188e89f37eb.mp4) | #blindinglightschallenge                                                          |
 
 ### Playlist TikToks table
 
