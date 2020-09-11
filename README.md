@@ -64,10 +64,10 @@ Playlist title, uuid (for share link) and who it belongs to
 
 The original url, mp4 url and title text
 
-| id  | original_url                                                      | mp4_url                                                    | title                                                                             |
-|:--- |:----------------------------------------------------------------- | ---------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| 1   | https://www.tiktok.com/@minecrafter2011/video/6732210815300111622 | https://v.tiktok.fail/af5bec5b0a331cecc9c49337287bb20c.mp4 | Spooky season dance, try it, it’s so fun #fyp #duetthis #dance #halloween #foryou |
-| 2   | https://www.tiktok.com/@hannahsimpsonx/video/6809258299985267974  | https://v.tiktok.fail/401fa7a6eedaf512427da188e89f37eb.mp4 | #blindinglightschallenge                                                          |
+| id  | original_url                                                                                                        | mp4_url                                                                                         | title                                                                             |
+|:--- |:------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| 1   | [https://www.tiktok.com/@mine.../video/67322...](https://www.tiktok.com/@minecrafter2011/video/6732210815300111622) | [https://v.tiktok.fail/af5be...mp4](https://v.tiktok.fail/af5bec5b0a331cecc9c49337287bb20c.mp4) | Spooky season dance, try it, it’s so fun #fyp #duetthis #dance #halloween #foryou |
+| 2   | [https://www.tiktok.com/@hann.../video/68092...](https://www.tiktok.com/@hannahsimpsonx/video/6809258299985267974)  | [https://v.tiktok.fail/401fa...mp4](https://v.tiktok.fail/401fa7a6eedaf512427da188e89f37eb.mp4) | #blindinglightschallenge                                                          | 
 
 ### Playlist TikToks table
 
@@ -103,7 +103,6 @@ Expects a username, email and password and returns a valid user on success, or 4
 curl --request POST \
   --url https://chronomy.herokuapp.com/registrations \
   --header 'content-type: application/json' \
-  --cookie _chronomy=yLlSIFgrbCJqUwejGAt6V5HmuJU0CTJanZ%252FI5f5A%252FByXs2zupMO11ahF%252BaGhzHCFZSPlKzHgwYJePOjWILdvfBVnuBxRU7xH%252FgufDvHTT9QaW1R7SS6mA9gyXhzZH50N5e%252F%252BU5TjEMsqN50hLVGaMHkQkaFut%252Fcp6BHnxufXL8sF--HMhhTDy3K0ipeRON--JA9Gk%252F%252FcDij5TPj3%252B%252FbtMA%253D%253D \
   --data '{"user": {"username": "username", "email": "email@example.com", "password": "password"}}'
 ```
 
